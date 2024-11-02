@@ -237,19 +237,23 @@ public class AVLTree{
         }
     }
 
-    public Node search(String word){
-        return searchRec(this.root, word);
+    public Node search(String prefix){
+        return searchRec(this.root, prefix);
     }
 
-    public Node searchRec(Node root, String word){
+    public Node searchRec(Node root, String prefix){
         if(root == null){
             return null;
         }
 
-        if (root.data.compareTo(word) > 0) { //root is bigger than data //search in the left subtree
-            return searchRec(root.left, word);
-        } else if (root.data.compareTo(word) < 0) { //search in the right subtree
-            return searchRec(root.right, word);
+        if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
+            System.out.println(root.data);
+        }
+
+        if (root.data.compareTo(prefix) > 0) { //root is bigger than data //search in the left subtree
+            return searchRec(root.left, prefix);
+        } else if (root.data.compareTo(prefix) < 0) { //search in the right subtree
+            return searchRec(root.right, prefix);
         } else { //root is the data
             return root; //word found
         }
@@ -286,13 +290,10 @@ public class AVLTree{
         }
         
         System.out.println("To get Prefix-based suggestions, type in prefix: ");
-        String str = scan.nextLine().toLowerCase(); //make the whole string lower case
+        String strPrefix = scan.nextLine().toLowerCase(); //make the whole string lower case
 
-        //String[] input = str.split("[ .,;?!]+"); //split at these characters
+        avlTree.search(strPrefix); //print suggested words based on prefix
 
-        // Print inorder traversal
-        System.out.println("Inorder traversal:");
-        avlTree.inorderTraversal();
         }catch(FileNotFoundException e){
             System.out.println("File not found");
         }catch(IOException e){
