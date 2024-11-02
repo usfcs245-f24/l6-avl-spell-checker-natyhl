@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class AVLTree{
     // Node class for the AVL Tree
     private class Node {
@@ -231,18 +237,67 @@ public class AVLTree{
         }
     }
 
+    public Node search(String word){
+        return searchRec(this.root, word);
+    }
+
+    public Node searchRec(Node root, String word){
+        if(root == null){
+            return null;
+        }
+
+        if (root.data.compareTo(word) > 0) { //root is bigger than data //search in the left subtree
+            return searchRec(root.left, word);
+        } else if (root.data.compareTo(word) < 0) { //search in the right subtree
+            return searchRec(root.right, word);
+        } else { //root is the data
+            return root; //word found
+        }
+    }
+
+    // In-order traversal
+    // void inOrderSearch(String word) {
+    //     inOrderRecSearch(root, word);
+    // }
+
+    // void inOrderRecSearch(Node root, String word) {
+    //     if (root != null) {
+    //         inOrderRecSearch(root.left, word);
+    //         if((root.data.length() == word.length()) || (root.data.length() == word.length() + 1) || (root.data.length() == word.length() - 1)){ //satisfies condition
+    //             String w = root.data.toLowerCase();
+    //             if(w.charAt(0) == word.charAt(0) && w.charAt(1) == word.charAt(1)){ //first two letters are the same
+    //                 System.out.print(root.data + " "+"\n");
+    //             }
+    //         inOrderRecSearch(root.right, word);
+    //         }
+    //     }
+    // }
+
     // Main method to demonstrate AVL Tree usage
     public static void main(String[] args) {
-        AVLTree avlTree = new AVLTree();
+        AVLTree avlTree = new AVLTree(); //build new AVL tree
+        Scanner scan = new Scanner(System.in); //scanner for keyboard input
 
-        // Insert some values
-        String[] values = {"apple", "banana", "lemon", "kiwi", "avocado"};
-        for (String s : values) {
-            avlTree.insert(s);
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("smalllist.txt")); //load the file
+            String word;
+        while((word = reader.readLine()) != null){
+            avlTree.insert(word);
         }
+        
+        System.out.println("To get Prefix-based suggestions, type in prefix: ");
+        String str = scan.nextLine().toLowerCase(); //make the whole string lower case
+
+        //String[] input = str.split("[ .,;?!]+"); //split at these characters
 
         // Print inorder traversal
         System.out.println("Inorder traversal:");
         avlTree.inorderTraversal();
+        }catch(FileNotFoundException e){
+            System.out.println("File not found");
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 }
