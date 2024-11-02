@@ -154,7 +154,7 @@ public class AVLTree{
          *       25  40
         */
         if (balance > 1 && s.compareTo(node.left.data) < 0) {
-            return rotateLeft(node);
+            return rotateRight(node);
         }
 
         // Right Right Case
