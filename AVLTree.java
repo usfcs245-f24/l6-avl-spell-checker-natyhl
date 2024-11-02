@@ -237,27 +237,35 @@ public class AVLTree{
         }
     }
 
-    public Node search(String prefix){
-        return searchRec(this.root, prefix);
+    public void search(String prefix){
+        searchRec(this.root, prefix);
     }
 
-    public Node searchRec(Node root, String prefix){
+    public void searchRec(Node root, String prefix){
         if(root == null){
-            return null;
+            return;
         }
 
         if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
             System.out.println(root.data);
         }
 
-        if (root.data.compareTo(prefix) > 0) { //root is bigger than data //search in the left subtree
-            return searchRec(root.left, prefix);
-        } else if (root.data.compareTo(prefix) < 0) { //search in the right subtree
-            return searchRec(root.right, prefix);
-        } else { //root is the data
-            return root; //word found
-        }
+        searchRec(root.left, prefix);
+        searchRec(root.right, prefix);
     }
+
+
+        // if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
+        //     System.out.println(root.data);
+        // }
+
+        // if (root.data.compareTo(prefix) > 0) { //root is bigger than data //search in the left subtree
+        //     return searchRec(root.left, prefix);
+        // } else if (root.data.compareTo(prefix) < 0) { //search in the right subtree
+        //     return searchRec(root.right, prefix);
+        // } else { //root is the data
+        //     return root; //word found
+        // }
 
     // In-order traversal
     // void inOrderSearch(String word) {
