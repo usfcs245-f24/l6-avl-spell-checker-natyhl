@@ -232,7 +232,7 @@ public class AVLTree{
     private void inorderTraversalRecursive(Node node) {
         if (node != null) {
             inorderTraversalRecursive(node.left);
-            System.out.print(node.data + " ");
+            System.out.println(node.data + " ");
             inorderTraversalRecursive(node.right);
         }
     }
@@ -293,6 +293,10 @@ public class AVLTree{
         String strPrefix = scan.nextLine().toLowerCase(); //make the whole string lower case
 
         avlTree.search(strPrefix); //print suggested words based on prefix
+
+        // Print inorder traversal
+        // System.out.println("Inorder traversal:");
+        // avlTree.inorderTraversal();
 
         }catch(FileNotFoundException e){
             System.out.println("File not found");
