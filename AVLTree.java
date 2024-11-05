@@ -246,9 +246,13 @@ public class AVLTree{
             return;
         }
 
-        if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
+        if((levenshteinDist(root.data.length(), prefix.length(), root.data, prefix) > 0) && (levenshteinDist(root.data.length(), prefix.length(), root.data, prefix) < 2)){
             System.out.println(root.data);
         }
+
+        // if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
+        //     System.out.println(root.data);
+        // }
 
         searchRec(root.left, prefix);
         searchRec(root.right, prefix);
@@ -284,6 +288,30 @@ public class AVLTree{
     //         }
     //     }
     // }
+    public static int levenshteinDist(int i, int j, String s1, String s2){ //https://www.youtube.com/watch?v=Ay9V69E18Awx, https://www.youtube.com/watch?v=fJaKO8FbDdo
+
+        if(i == 0){ //if one string is exhausted, take the other one
+            return j; 
+        }
+
+        if(j == 0){ //if one string is exhausted, take the other one
+            return i; 
+        }
+
+        if(s1.charAt(i - 1) == s2.charAt(j - 1)){ //strings are the same
+            return levenshteinDist(i - 1, j - 1, s1, s2);
+        }
+        
+        return 1 + Math.min( //return minimum of operations
+        //Insert
+        levenshteinDist(i-1, j, s1, s2),
+        Math.min(
+        //Delete
+        levenshteinDist(i, j-1, s1, s2),
+        //Replace
+        levenshteinDist(i - 1, j - 1, s1, s2)));
+
+    }
 
     // Main method to demonstrate AVL Tree usage
     public static void main(String[] args) {
@@ -291,7 +319,7 @@ public class AVLTree{
         Scanner scan = new Scanner(System.in); //scanner for keyboard input
 
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("smalllist.txt")); //load the file
+            BufferedReader reader = new BufferedReader(new FileReader("midfile.txt")); //load the file
             String word;
         while((word = reader.readLine()) != null){
             avlTree.insert(word);
@@ -305,6 +333,11 @@ public class AVLTree{
         // Print inorder traversal
         // System.out.println("Inorder traversal:");
         // avlTree.inorderTraversal();
+        // String str1 = "ros";
+        // String str2 = "horse";
+        // int n = str1.length();
+        // int m = str2.length();
+        // System.out.println(f(n, m, str1, str2));
 
         }catch(FileNotFoundException e){
             System.out.println("File not found");
