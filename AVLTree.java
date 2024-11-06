@@ -239,11 +239,13 @@ public class AVLTree{
             inorderTraversalRecursive(node.right);
         }
     }
+    
+    //Recursive search of words starting with the same prefix
     public void searchForPrefix(String prefix){
         searchRecPrefix(this.root, prefix);
     }
 
-    public void searchRecPrefix(Node root, String prefix){ //Recursive search of words starting with the same prefix
+    public void searchRecPrefix(Node root, String prefix){ 
         if(root == null){
             return;
         }
@@ -255,12 +257,14 @@ public class AVLTree{
         searchRecPrefix(root.left, prefix); //Recursive calls
         searchRecPrefix(root.right, prefix);
     }
+    /////////////////////////////////////////////////////////////
 
+    //Recursive search of words with Edit distance smaller than 2
     public void search(String prefix){
         searchRec(this.root, prefix);
     }
 
-    public void searchRec(Node root, String prefix){ //Recursive search of words with Edit distance smaller than 2
+    public void searchRec(Node root, String prefix){ 
         if(root == null){
             return;
         }
@@ -273,32 +277,8 @@ public class AVLTree{
         searchRec(root.left, prefix);
         searchRec(root.right, prefix);
     }
+    /////////////////////////////////////////////////////////////
 
-        // if (root.data.compareTo(prefix) > 0) { //root is bigger than data //search in the left subtree
-        //     return searchRec(root.left, prefix);
-        // } else if (root.data.compareTo(prefix) < 0) { //search in the right subtree
-        //     return searchRec(root.right, prefix);
-        // } else { //root is the data
-        //     return root; //word found
-        // }
-
-    // In-order traversal
-    // void inOrderSearch(String word) {
-    //     inOrderRecSearch(root, word);
-    // }
-
-    // void inOrderRecSearch(Node root, String word) {
-    //     if (root != null) {
-    //         inOrderRecSearch(root.left, word);
-    //         if((root.data.length() == word.length()) || (root.data.length() == word.length() + 1) || (root.data.length() == word.length() - 1)){ //satisfies condition
-    //             String w = root.data.toLowerCase();
-    //             if(w.charAt(0) == word.charAt(0) && w.charAt(1) == word.charAt(1)){ //first two letters are the same
-    //                 System.out.print(root.data + " "+"\n");
-    //             }
-    //         inOrderRecSearch(root.right, word);
-    //         }
-    //     }
-    // }
     public static int levenshteinDist(int i, int j, String s1, String s2){ //https://www.youtube.com/watch?v=Ay9V69E18Awx, https://www.youtube.com/watch?v=fJaKO8FbDdo
 
         if(i == 0){ //if one string is exhausted, take the other one
@@ -339,19 +319,11 @@ public class AVLTree{
         System.out.println("To get Prefix-based suggestions, type in prefix: ");
         String strPrefix = scan.nextLine().toLowerCase(); //make the whole string lower case
 
-        System.out.println("Misspelled word suggestions: ");
-        avlTree.searchForPrefix(strPrefix); //print suggested words based on prefix
         System.out.println("Words suggested based on prefix: ");
-        avlTree.search(strPrefix); //print words based on edit distance
+        avlTree.searchForPrefix(strPrefix); //print suggested words based on prefix
 
-        // Print inorder traversal
-        // System.out.println("Inorder traversal:");
-        // avlTree.inorderTraversal();
-        // String str1 = "ros";
-        // String str2 = "horse";
-        // int n = str1.length();
-        // int m = str2.length();
-        // System.out.println(f(n, m, str1, str2));
+        System.out.println("Misspelled word suggestions: ");
+        avlTree.search(strPrefix); //print words based on edit distance
 
         }catch(FileNotFoundException e){
             System.out.println("File not found");
