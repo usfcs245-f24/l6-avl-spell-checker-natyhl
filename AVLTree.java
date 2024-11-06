@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/*This class was implemented in class*/
 public class AVLTree{
     // Node class for the AVL Tree
     private class Node {
@@ -222,6 +223,8 @@ public class AVLTree{
         return node;
     }
 
+    /*This class was implemented in class*/
+
     // Inorder traversal to print the tree
     public void inorderTraversal() {
         inorderTraversalRecursive(root);
@@ -236,32 +239,40 @@ public class AVLTree{
             inorderTraversalRecursive(node.right);
         }
     }
+    public void searchForPrefix(String prefix){
+        searchRecPrefix(this.root, prefix);
+    }
+
+    public void searchRecPrefix(Node root, String prefix){ //Recursive search of words starting with the same prefix
+        if(root == null){
+            return;
+        }
+
+        //Printout words that start with the prefix
+        if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
+            System.out.println(root.data);
+        }
+        searchRecPrefix(root.left, prefix); //Recursive calls
+        searchRecPrefix(root.right, prefix);
+    }
 
     public void search(String prefix){
         searchRec(this.root, prefix);
     }
 
-    public void searchRec(Node root, String prefix){
+    public void searchRec(Node root, String prefix){ //Recursive search of words with Edit distance smaller than 2
         if(root == null){
             return;
         }
 
+        //Printout words that have edit distance at most 2
         if((levenshteinDist(root.data.length(), prefix.length(), root.data, prefix) > 0) && (levenshteinDist(root.data.length(), prefix.length(), root.data, prefix) < 2)){
-            System.out.println(root.data);
+            System.out.println(root.data); 
         }
-
-        // if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
-        //     System.out.println(root.data);
-        // }
 
         searchRec(root.left, prefix);
         searchRec(root.right, prefix);
     }
-
-
-        // if(root.data.indexOf(prefix) == 0){ //source: https://javarevisited.blogspot.com/2016/10/how-to-check-if-string-contains-another-substring-in-java-indexof-example.html#
-        //     System.out.println(root.data);
-        // }
 
         // if (root.data.compareTo(prefix) > 0) { //root is bigger than data //search in the left subtree
         //     return searchRec(root.left, prefix);
@@ -328,7 +339,10 @@ public class AVLTree{
         System.out.println("To get Prefix-based suggestions, type in prefix: ");
         String strPrefix = scan.nextLine().toLowerCase(); //make the whole string lower case
 
-        avlTree.search(strPrefix); //print suggested words based on prefix
+        System.out.println("Misspelled word suggestions: ");
+        avlTree.searchForPrefix(strPrefix); //print suggested words based on prefix
+        System.out.println("Words suggested based on prefix: ");
+        avlTree.search(strPrefix); //print words based on edit distance
 
         // Print inorder traversal
         // System.out.println("Inorder traversal:");
@@ -344,6 +358,5 @@ public class AVLTree{
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-
     }
 }
