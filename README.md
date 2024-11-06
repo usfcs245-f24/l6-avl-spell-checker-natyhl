@@ -1,1 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/hsoAXbOq)
+Natalie Hlusi, aiming for grade **A**
+
+For this project, I implemented AVLTree which uses code from our previous lectures. I implemented methods to recursively search for words based on prefix. The user is being asked to type in the prefix in the program. After it displays 1)words from the dictionary that start with the same prefix, 2\) words that have edit distance at most 2\.
+
