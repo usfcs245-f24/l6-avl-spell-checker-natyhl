@@ -1,3 +1,8 @@
+// Natalie Hlusi
+// ID: 20770023
+// Github ID: natyhl
+// Lab 7 - AVLTree.java
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
